@@ -1,3 +1,5 @@
+set -x
+
 sudo mkdir -p /etc/kubernetes/config
 
 

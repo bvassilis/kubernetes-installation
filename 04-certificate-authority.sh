@@ -1,3 +1,5 @@
+set -x
+
 cat > ca-config.json <<EOF
 {
   "signing": {

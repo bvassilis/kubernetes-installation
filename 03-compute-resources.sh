@@ -1,3 +1,5 @@
+set -x
+
 gcloud compute networks create kubernetes-the-hard-way --subnet-mode custom
 
 gcloud compute networks subnets create kubernetes \

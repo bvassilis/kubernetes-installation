@@ -1,3 +1,5 @@
+set -x
+
 cat > podreader-csr.json <<EOF
 {
   "CN": "podreader",
