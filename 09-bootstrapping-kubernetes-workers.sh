@@ -1,9 +1,7 @@
 sudo apt-get update
-  sudo apt-get -y install socat conntrack ipset
+sudo apt-get -y install socat conntrack ipset
 
-
-
-  wget -q --show-progress --https-only --timestamping \
+wget -q --show-progress --https-only --timestamping \
   https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.12.0/crictl-v1.12.0-linux-amd64.tar.gz \
   https://storage.googleapis.com/kubernetes-the-hard-way/runsc-50c283b9f56bb7200938d9e207355f05f79f0d17 \
   https://github.com/opencontainers/runc/releases/download/v1.0.0-rc5/runc.amd64 \
@@ -14,8 +12,7 @@ sudo apt-get update
   https://storage.googleapis.com/kubernetes-release/release/v1.12.0/bin/linux/amd64/kubelet
 
 
-
-  sudo mkdir -p \
+sudo mkdir -p \
   /etc/cni/net.d \
   /opt/cni/bin \
   /var/lib/kubelet \
@@ -24,24 +21,19 @@ sudo apt-get update
   /var/run/kubernetes
 
 
-
-    sudo mv runsc-50c283b9f56bb7200938d9e207355f05f79f0d17 runsc
-  sudo mv runc.amd64 runc
-  chmod +x kubectl kube-proxy kubelet runc runsc
-  sudo mv kubectl kube-proxy kubelet runc runsc /usr/local/bin/
-  sudo tar -xvf crictl-v1.12.0-linux-amd64.tar.gz -C /usr/local/bin/
-  sudo tar -xvf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin/
-  sudo tar -xvf containerd-1.2.0-rc.0.linux-amd64.tar.gz -C /
-
+sudo mv runsc-50c283b9f56bb7200938d9e207355f05f79f0d17 runsc
+sudo mv runc.amd64 runc
+chmod +x kubectl kube-proxy kubelet runc runsc
+sudo mv kubectl kube-proxy kubelet runc runsc /usr/local/bin/
+sudo tar -xvf crictl-v1.12.0-linux-amd64.tar.gz -C /usr/local/bin/
+sudo tar -xvf cni-plugins-amd64-v0.6.0.tgz -C /opt/cni/bin/
+sudo tar -xvf containerd-1.2.0-rc.0.linux-amd64.tar.gz -C /
 
 
-  POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
+POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
   http://metadata.google.internal/computeMetadata/v1/instance/attributes/pod-cidr)
 
-
-
-
-  cat <<EOF | sudo tee /etc/cni/net.d/10-bridge.conf
+cat <<EOF | sudo tee /etc/cni/net.d/10-bridge.conf
 {
     "cniVersion": "0.3.1",
     "name": "bridge",
@@ -114,8 +106,8 @@ EOF
 
 
 sudo mv ${HOSTNAME}-key.pem ${HOSTNAME}.pem /var/lib/kubelet/
-  sudo mv ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
-  sudo mv ca.pem /var/lib/kubernetes/
+sudo mv ${HOSTNAME}.kubeconfig /var/lib/kubelet/kubeconfig
+sudo mv ca.pem /var/lib/kubernetes/
 
 cat <<EOF | sudo tee /var/lib/kubelet/kubelet-config.yaml
 kind: KubeletConfiguration
@@ -166,7 +158,6 @@ WantedBy=multi-user.target
 EOF
 
 
-
 sudo mv kube-proxy.kubeconfig /var/lib/kube-proxy/kubeconfig
 
 
@@ -178,7 +169,6 @@ clientConnection:
 mode: "iptables"
 clusterCIDR: "10.200.0.0/16"
 EOF
-
 
 
 cat <<EOF | sudo tee /etc/systemd/system/kube-proxy.service
@@ -197,10 +187,9 @@ WantedBy=multi-user.target
 EOF
 
 
-
- sudo systemctl daemon-reload
-  sudo systemctl enable containerd kubelet kube-proxy
-  sudo systemctl start containerd kubelet kube-proxy
+sudo systemctl daemon-reload
+sudo systemctl enable containerd kubelet kube-proxy
+sudo systemctl start containerd kubelet kube-proxy
 
 
 

@@ -26,4 +26,4 @@
 
 
 
-    curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version
+curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version
